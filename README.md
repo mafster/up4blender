@@ -1,5 +1,5 @@
 # up4blender
-Universal Pipeline access for Blender
+Blender addon for accessing the Universal Pipeline sofware
 
 Required Dependencies:
 - Blender 2.80
