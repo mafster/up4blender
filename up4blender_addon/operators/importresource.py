@@ -7,7 +7,7 @@ from unipipe.core.objects import resource
 
 from ..gui import popup
 
-#TODO: Remove hard-coded project setting 'bug_and_dylan'
+
 class UnipipeAppendPublishedModel(bpy.types.Operator):
     """ Import(append) a published model resource based on the current resource """
     bl_idname = "wm.unipipe_append_published_model"
@@ -84,7 +84,7 @@ class UnipipeLinkPublishedFinal(bpy.types.Operator):
         item_list = []
         idx = 0
 
-        res_items = worker.ResourceWorker().get_all_resources(project='bug_and_dylan', resource_type='component')
+        res_items = worker.ResourceWorker().get_all_resources(project=os.environ['CURRENT_UNIPIPE_PROJECT'], resource_type='component')
 
         if not isinstance(res_items, (list, tuple)):
             res_items = [res_items]
@@ -106,7 +106,7 @@ class UnipipeLinkPublishedFinal(bpy.types.Operator):
         imp_w = worker.ImportWorker()
 
         # Instantiate a resource
-        res = resource.Component(project='bug_and_dylan', name=name, type='final')
+        res = resource.Component(project=os.environ['CURRENT_UNIPIPE_PROJECT'], name=name, type='final')
 
         # Check resource availability
         res_path = imp_w.construct_publish_path(resource=res, version=0, ext=ctx_w.app_interface.primary_extension)
@@ -148,7 +148,7 @@ class UnipipeLinkPublishedCollection(bpy.types.Operator):
         item_list = []
         idx = 0
 
-        res_items = worker.ResourceWorker().get_all_resources(project='bug_and_dylan', resource_type='context')
+        res_items = worker.ResourceWorker().get_all_resources(project=os.environ['CURRENT_UNIPIPE_PROJECT'], resource_type='context')
 
         if not isinstance(res_items, (list, tuple)):
             res_items = [res_items]
@@ -170,7 +170,7 @@ class UnipipeLinkPublishedCollection(bpy.types.Operator):
         imp_w = worker.ImportWorker()
 
         # Instantiate a resource
-        res = resource.Context(project='bug_and_dylan', name=name, type='collection')
+        res = resource.Context(project=os.environ['CURRENT_UNIPIPE_PROJECT'], name=name, type='collection')
 
         # Check resource availability
         res_path = imp_w.construct_publish_path(resource=res, version=0, ext=ctx_w.app_interface.primary_extension)
