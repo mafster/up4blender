@@ -85,10 +85,22 @@ class UnipipeRenderSettings(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class UnipipeSetRenderPath(bpy.types.Operator):
-    """ """
-    bl_idname = "wm.unipipe_set_render_path"
-    bl_label = "Set Render Path"
+class UnipipeSetRenderOutput(bpy.types.Operator):
+    """
+    ligthing:
+        OPEN EXR MULTILAYER
+        RGBA
+        32
+        ZIP
+
+    default:
+        PNG
+        RGBA
+        8 bit
+        10% compression
+    """
+    bl_idname = "wm.unipipe_set_render_output"
+    bl_label = "Set Render Output"
 
     @classmethod
     def poll(cls, context):
@@ -106,21 +118,15 @@ class UnipipeSetRenderPath(bpy.types.Operator):
             render.image_settings.file_format = 'OPEN_EXR_MULTILAYER'
             render.image_settings.color_mode = 'RGBA'
             render.image_settings.color_depth = '32'
-            render.image_settings.exr_codec = 'PXR24'
+            render.image_settings.exr_codec = 'ZIP'
             path = rev_w.construct_path(resource=res, ext='exr', padding=4)
 
-        elif res.type == 'compositing':
+        else:
             render.image_settings.file_format = 'PNG'
             render.image_settings.color_mode = 'RGB'
-            render.image_settings.color_depth = '16'
+            render.image_settings.color_depth = '8'
             render.image_settings.compression = 10
             path = rev_w.construct_path(resource=res, ext='png', padding=4)
-
-        else:
-            render.image_settings.file_format = 'JPEG'
-            render.image_settings.color_mode = 'RGB'
-            render.image_settings.quality = 90
-            path = rev_w.construct_path(resource=res, ext='jpg', padding=4)
 
         # Set Path
         render.filepath = path
@@ -141,9 +147,9 @@ class UnipipeSetRenderPath(bpy.types.Operator):
 
 def register():
     bpy.utils.register_class(UnipipeRenderSettings)
-    bpy.utils.register_class(UnipipeSetRenderPath)
+    bpy.utils.register_class(UnipipeSetRenderOutput)
 
 
 def unregister():
-    bpy.utils.unregister_class(UnipipeSetRenderPath)
+    bpy.utils.unregister_class(UnipipeSetRenderOutput)
     bpy.utils.unregister_class(UnipipeRenderSettings)

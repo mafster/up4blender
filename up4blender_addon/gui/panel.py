@@ -35,7 +35,7 @@ class UnipipeComponentManagerPanel(bpy.types.Panel):
         col.operator("wm.unipipe_link_published_collection", text='Link Context Resource')
 
         col.label(text='Narrative')
-        col.operator("wm.unipipe_set_render_path")
+        col.operator("wm.unipipe_set_render_output")
         col.operator("wm.unipipe_set_render_settings")
 
 

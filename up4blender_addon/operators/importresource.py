@@ -3,7 +3,7 @@ import json
 import bpy
 
 from unipipe import worker
-from unipipe.core.objects import resource
+from unipipe.model import resource
 
 from ..gui import popup
 
